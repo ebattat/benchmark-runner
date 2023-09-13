@@ -24,7 +24,7 @@ template_data:
       nthrs:
         - 1
         - 8
-      runtime: 60
+      runtime: 3
     default:
       test_types:
         - stream
@@ -37,7 +37,7 @@ template_data:
       nthrs:
         - 1
         - 2
-      runtime: 30
+      runtime: 3
   kind:
     vm:
       run_type:
