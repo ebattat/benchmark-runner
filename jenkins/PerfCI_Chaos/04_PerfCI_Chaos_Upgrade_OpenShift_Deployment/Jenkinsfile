@@ -3,11 +3,11 @@ pipeline {
         label 'PerfCi'
     }
     environment {
-        UPGRADE_OCP_VERSION = '4.15.23'
-        LSO_VERSION = '4.15'
-        ODF_VERSION = '4.15'
-        CNV_VERSION = '4.15'
-        WAIT_FOR_UPGRADE_VERSION = '4.15.23'
+        UPGRADE_OCP_VERSION = '4.18.0-rc.6'
+        LSO_VERSION = '4.17'
+        ODF_VERSION = '4.17'
+        CNV_VERSION = '4.17'
+        WAIT_FOR_UPGRADE_VERSION = '4.18.0-rc.6'
         UPGRADE_CHANNEL = 'candidate'
         CONTACT_EMAIL1 = credentials('perfci_contact_email1')
         PROVISION_PRIVATE_KEY_FILE = credentials('perfci_provision_private_key_file')
@@ -160,6 +160,7 @@ END
                                                     sh """
                                                         sudo podman run --rm -e UPGRADE_OCP_VERSION="${UPGRADE_OCP_VERSION}" \
                                                             -e UPGRADE_STEP="${upgrade_step}" \
+                                                            -e UPGRADE_CHANNEL='${UPGRADE_CHANNEL}' \
                                                             -e LSO_VERSION="${LSO_VERSION}" \
                                                             -e ODF_VERSION="${ODF_VERSION}" \
                                                             -e CNV_VERSION="${CNV_VERSION}" \
@@ -242,7 +243,6 @@ END
                                         -e ODF_VERSION="${ODF_VERSION}" \
                                         -e CNV_VERSION="${CNV_VERSION}" \
                                         -e WAIT_FOR_UPGRADE_VERSION='${WAIT_FOR_UPGRADE_VERSION}' \
-                                        -e UPGRADE_CHANNEL='${UPGRADE_CHANNEL}' \
                                         -e KUBEADMIN_PASSWORD='${KUBEADMIN_PASSWORD}' \
                                         -e PIN_NODE_BENCHMARK_OPERATOR='${PIN_NODE_BENCHMARK_OPERATOR}' \
                                         -e PIN_NODE1='${PIN_NODE1}' \

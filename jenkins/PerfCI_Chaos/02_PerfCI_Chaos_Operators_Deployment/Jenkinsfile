@@ -5,9 +5,9 @@ pipeline {
     environment {
         INSTALL_OCP_RESOURCES = 'True'
         CNV_NIGHTLY_CHANNEL = 'False' // CNV Stable Operator
-        CNV_VERSION = '4.14'
-        LSO_VERSION = '4.14'
-        ODF_VERSION = '4.14'
+        CNV_VERSION = '4.17'
+        LSO_VERSION = '4.17'
+        ODF_VERSION = '4.17'
         CONTACT_EMAIL1 = credentials('perfci_contact_email1')
         PROVISION_USER = credentials('perfci_provision_user')
         PROVISION_IP = credentials('perfci_provision_ip')
