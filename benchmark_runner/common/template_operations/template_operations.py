@@ -5,6 +5,8 @@ import yaml
 import sys
 import benchmark_runner
 from multiprocessing import Process
+import multiprocessing
+multiprocessing.set_start_method('fork', force=True)
 
 from jinja2 import Template, TemplateSyntaxError
 from benchmark_runner.common.template_operations.render_yaml_from_template import render_yaml_file
@@ -164,7 +166,7 @@ class TemplateOperations:
             if os.path.isfile(os.path.join(self.__dir_path, f'namespace_template.yaml')):
                 answer['namespace.yaml'] = render_yaml_file(dir_path=self.__dir_path, yaml_file='namespace_template.yaml', environment_variable_dict=self.__environment_variables_dict)
             # windows workload
-            if 'windows' in self.__workload_name:
+            if 'win' in self.__workload_name:
                 answer['windows_dv.yaml'] = render_yaml_file(dir_path=os.path.join(workload_dir_path, 'internal_data'), yaml_file='windows_dv_template.yaml', environment_variable_dict=render_data)
             # vdbench scale
             if scale and redis and 'vdbench' in self.__workload_name:

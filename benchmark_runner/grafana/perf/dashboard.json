@@ -85,7 +85,7 @@
          },
          "id": 2,
          "options": {
-            "content": "![PerfCi](https://www.cielhr.com/wp-content/uploads/2019/10/PerformancewSpace-1080x675.png \"Tooltip Text\")\n",
+            "content": "![PerfCi](https://github.com/redhat-performance/benchmark-runner/blob/main/media/performance.png?raw=true \"Tooltip Text\")\n",
             "mode": "markdown"
          },
          "pluginVersion": "v10.0.0",
@@ -2096,6 +2096,14 @@
                            "index": 509,
                            "text": "4.20.3"
                         },
+                        "420318": {
+                           "index": 521,
+                           "text": "4.20.3-18"
+                        },
+                        "42039": {
+                           "index": 519,
+                           "text": "4.20.3-9"
+                        },
                         "4204": {
                            "index": 511,
                            "text": "4.20.4"
@@ -2103,6 +2111,10 @@
                         "4205": {
                            "index": 515,
                            "text": "4.20.5"
+                        },
+                        "4206": {
+                           "index": 518,
+                           "text": "4.20.6"
                         },
                         "421002": {
                            "index": 512,
@@ -2112,9 +2124,57 @@
                            "index": 514,
                            "text": "4.21.0-ec.3"
                         },
+                        "4210102": {
+                           "index": 525,
+                           "text": "4.21.0-102"
+                        },
+                        "4210104": {
+                           "index": 526,
+                           "text": "4.21.0-104"
+                        },
+                        "4210126": {
+                           "index": 527,
+                           "text": "4.21.0-126"
+                        },
+                        "4210134": {
+                           "index": 528,
+                           "text": "4.21.0-134"
+                        },
+                        "4210139": {
+                           "index": 529,
+                           "text": "4.21.0-139"
+                        },
+                        "4210141": {
+                           "index": 531,
+                           "text": "4.21.0-141"
+                        },
+                        "4210143": {
+                           "index": 530,
+                           "text": "4.21.0-143"
+                        },
                         "421034": {
                            "index": 513,
                            "text": "4.21.0-34"
+                        },
+                        "421044": {
+                           "index": 517,
+                           "text": "4.21.0-44"
+                        },
+                        "421056": {
+                           "index": 520,
+                           "text": "4.21.0-56"
+                        },
+                        "421068": {
+                           "index": 522,
+                           "text": "4.21.0-68"
+                        },
+                        "421072": {
+                           "index": 523,
+                           "text": "4.21.0-72"
+                        },
+                        "421083": {
+                           "index": 524,
+                           "text": "4.21.0-83"
                         },
                         "4814": {
                            "index": 6,
@@ -2396,6 +2456,7 @@
          "panels": [
             {
                "datasource": "Elasticsearch-hammerdb-results",
+               "description": "MSSQL2022 \n\nMariaDB10.5 \n\nPostgreSQL13\n\n HammerDB4.0",
                "fieldConfig": {
                   "defaults": {
                      "color": {
@@ -2465,7 +2526,7 @@
                "pluginVersion": "v10.0.0",
                "targets": [
                   {
-                     "alias": "{{term db_type.keyword}}  : {{term current_worker}} threads : {{term kind.keyword}}:  {{term storage_type.keyword}}",
+                     "alias": "{{term vm_os_version.keyword}}  : {{term db_type.keyword}}  : {{term current_worker}} threads : {{term kind.keyword}}:  {{term storage_type.keyword}}",
                      "bucketAggs": [
                         {
                            "field": "db_type.keyword",
@@ -2512,6 +2573,17 @@
                            "type": "terms"
                         },
                         {
+                           "field": "vm_os_version.keyword",
+                           "id": "7",
+                           "settings": {
+                              "min_doc_count": "1",
+                              "order": "desc",
+                              "orderBy": "_term",
+                              "size": "10"
+                           },
+                           "type": "terms"
+                        },
+                        {
                            "field": "timestamp",
                            "id": "2",
                            "settings": {
@@ -2530,7 +2602,7 @@
                            "type": "max"
                         }
                      ],
-                     "query": "_exists_:tpm AND db_type:$db_type AND current_worker:$current_worker AND kind:$kind AND ocp_version:$ocp_version",
+                     "query": "_exists_:tpm AND db_type:$db_type AND current_worker:$current_worker AND kind:$kind AND ocp_version:$ocp_version AND vm_os_version:$vm_os_version",
                      "refId": "A",
                      "timeField": "timestamp"
                   }
@@ -9857,6 +9929,19 @@
             "refresh": 2,
             "regex": "",
             "sort": 6,
+            "type": "query"
+         },
+         {
+            "allValue": "",
+            "datasource": "Elasticsearch-hammerdb-results",
+            "hide": 0,
+            "includeAll": true,
+            "multi": true,
+            "name": "vm_os_version",
+            "query": "{\"find\":\"terms\",\"field\":\"vm_os_version.keyword\"}",
+            "refresh": 2,
+            "regex": "",
+            "sort": 1,
             "type": "query"
          },
          {

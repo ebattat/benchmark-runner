@@ -84,8 +84,8 @@ class EnvironmentVariables:
         # prometheus snap interval
         self._environment_variables_dict['prometheus_snap_interval'] = EnvironmentVariables.get_env('PROMETHEUS_SNAP_INTERVAL', '30')
 
-        # fedora container disk qcow2 image on quay.io
-        self._environment_variables_dict['fedora_container_disk'] = EnvironmentVariables.get_env('FEDORA_CONTAINER_DISK','quay.io/ebattat/fedora37-container-disk:latest')
+        # based on: quay.io/openshift-cnv/qe-cnv-tests-fedora:39
+        self._environment_variables_dict['fedora_container_disk'] = EnvironmentVariables.get_env('FEDORA_CONTAINER_DISK','quay.io/benchmark-runner/fedora39-container-disk:latest')
         # windows url
         self._environment_variables_dict['windows_url'] = EnvironmentVariables.get_env('WINDOWS_URL', '')
         # Delete all resources before and after the run, default True
@@ -112,7 +112,7 @@ class EnvironmentVariables:
                                                          'hammerdb_pod_mssql', 'hammerdb_vm_mssql', 'hammerdb_kata_mssql',
                                                          'hammerdb_pod_mssql_lso', 'hammerdb_vm_mssql_lso', 'hammerdb_kata_mssql_lso',
                                                          'vdbench_pod', 'vdbench_kata', 'vdbench_vm',
-                                                         'clusterbuster', 'bootstorm_vm', 'windows_vm', 'krknhub']
+                                                         'clusterbuster', 'bootstorm_vm', 'windows_vm', 'winmssql_vm', 'krknhub']
         # Workloads namespaces
         self._environment_variables_dict['workload_namespaces'] = {
             'stressng': 'benchmark-operator',
@@ -122,7 +122,18 @@ class EnvironmentVariables:
             'clusterbuster': 'clusterbuster',
             'bootstorm': 'benchmark-runner',
             'windows': 'benchmark-runner',
+            'winmssql': 'benchmark-runner',
             'krknhub': 'krknhub',
+        }
+
+        # Versions
+        self._environment_variables_dict['product_versions'] = {
+            'mssql': 2022,
+            'postgres': 13,
+            'mariadb': 10.5,
+            'db_vm_os_version': 'centos-stream9',
+            'vm_os_version': 'fedora39',
+            'hammerdb': 4.0
         }
 
         # Update namespace
@@ -138,7 +149,7 @@ class EnvironmentVariables:
 
         # run workload with odf pvc True/False. True=ODF(default), False=Ephemeral
         self._environment_variables_dict['odf_pvc'] = EnvironmentVariables.get_boolean_from_environment('ODF_PVC', True)
-        if base_workload == 'hammerdb':
+        if base_workload == 'hammerdb' or base_workload == 'winmssql':
             if len(self._environment_variables_dict['workload'].split('_')) == self.HAMMERDB_LSO_LEN:
                 self._environment_variables_dict['storage_type'] = self._environment_variables_dict['workload'].split('_')[self.HAMMERDB_LSO_LEN-1]
             elif self._environment_variables_dict['odf_pvc']:
