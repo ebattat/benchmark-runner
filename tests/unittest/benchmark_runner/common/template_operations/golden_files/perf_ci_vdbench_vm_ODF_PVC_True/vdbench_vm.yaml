@@ -89,7 +89,7 @@ spec:
                 - export DIRECTORIES=600
                 - export FILES_PER_DIRECTORY=10
                 - export SIZE_PER_FILE=10
-                - export REDIS_HOST=
+                - export REDIS_HOST=redis-deployment.benchmark-runner.svc.cluster.local
                 - export WORKLOAD_METHOD=/vdbench/vdbench_runner.sh
                 - export TIMEOUT=3600
                 - export LOGS_DIR=/workload/

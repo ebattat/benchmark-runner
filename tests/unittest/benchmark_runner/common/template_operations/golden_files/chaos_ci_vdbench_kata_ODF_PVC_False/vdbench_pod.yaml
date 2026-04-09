@@ -67,7 +67,7 @@ spec:
           value: "5"
         #state-signals
         - name: REDIS_HOST
-          value: ""
+          value: "redis-deployment.benchmark-runner.svc.cluster.local"
         - name: WORKLOAD_METHOD
           value: "/vdbench/vdbench_runner.sh"
         - name: TIMEOUT
